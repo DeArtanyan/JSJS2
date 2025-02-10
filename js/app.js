@@ -38,17 +38,19 @@ new Vue({
             }
         },
         checkCardProgress(card, columnIndex) {
-            if (columnIndex === 0) {
-                const totalItems = card.items.length;
-                const completedItems = card.items.filter(item => item.completed).length;
-                if (completedItems > totalItems / 2) {
-                    this.moveCardToSecondColumn(card);
-                }
+            const totalItems = card.items.length;
+            const completedItems = card.items.filter(item => item.completed).length;
+            const progress = completedItems / totalItems;
+
+            if (columnIndex === 0 && progress > 0.5) {
+                this.moveCard(card, 0, 1);
+            } else if (columnIndex === 1 && progress <= 0.5) {
+                this.moveCard(card, 1, 0);
             }
         },
-        moveCardToSecondColumn(card) {
-            this.columns[0].cards = this.columns[0].cards.filter(c => c !== card);
-            this.columns[1].cards.push(card);
+        moveCard(card, fromColumnIndex, toColumnIndex) {
+            this.columns[fromColumnIndex].cards = this.columns[fromColumnIndex].cards.filter(c => c !== card);
+            this.columns[toColumnIndex].cards.push(card);
         }
     }
 });
