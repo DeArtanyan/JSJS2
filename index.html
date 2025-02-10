@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Три столбца с карточками</title>
+    <title>card</title>
     <script defer src="./js/vue.js"></script>
     <script defer src="./js/app.js"></script>
     <link rel="stylesheet" href="./css/style.css">
@@ -18,7 +18,7 @@
                     <ul>
                         <li v-for="(item, itemIndex) in card.items" :key="itemIndex">
                             <label>
-                                <input type="checkbox" v-model="item.completed" />
+                                <input type="checkbox" v-model="item.completed" @change="checkCardProgress(card, index)" />
                                 <span :class="{ completed: item.completed }">{{ item.text }}</span>
                             </label>
                         </li>
