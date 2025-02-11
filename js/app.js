@@ -23,7 +23,8 @@ new Vue({
                 this.columns[0].cards.push({
                     title: this.newCardTitle,
                     items: [],
-                    newItem: ''
+                    newItem: '',
+                    completedAt: null
                 });
                 this.newCardTitle = '';
             }
@@ -47,14 +48,26 @@ new Vue({
             } else if (columnIndex === 1 && progress <= 0.5) {
                 this.moveCard(card, 1, 0);
             } else if (columnIndex === 1 && progress === 1) {
+                card.completedAt = new Date();
                 this.moveCard(card, 1, 2);
             } else if (columnIndex === 2 && progress < 1) {
+                card.completedAt = null;
                 this.moveCard(card, 2, 1);
             }
         },
         moveCard(card, fromColumnIndex, toColumnIndex) {
             this.columns[fromColumnIndex].cards = this.columns[fromColumnIndex].cards.filter(c => c !== card);
             this.columns[toColumnIndex].cards.push(card);
+        },
+        formatDate(date) {
+            return new Intl.DateTimeFormat('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }).format(date);
         }
     }
 });

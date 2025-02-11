@@ -27,6 +27,9 @@
                         <input v-model="card.newItem" placeholder="Новый пункт списка" />
                         <button @click="addListItem(card)">Добавить пункт</button>
                     </div>
+                    <div v-if="index === 2 && card.completedAt" class="completion-time">
+                        Завершено: {{ formatDate(card.completedAt) }}
+                    </div>
                 </div>
             </div>
         </div>

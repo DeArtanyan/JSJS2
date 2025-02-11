@@ -111,3 +111,10 @@ body {
 .add-card-form button:hover {
     background-color: #218838;
 }
+
+.completion-time {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+    font-style: italic;
+}
