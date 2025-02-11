@@ -18,14 +18,14 @@
                     <ul>
                         <li v-for="(item, itemIndex) in card.items" :key="itemIndex">
                             <label>
-                                <input type="checkbox" v-model="item.completed" @change="checkCardProgress(card, index)" />
+                                <input type="checkbox" v-model="item.completed" @change="checkCardProgress(card, index)" :disabled="isFirstColumnLocked && index === 0" />
                                 <span :class="{ completed: item.completed }">{{ item.text }}</span>
                             </label>
                         </li>
                     </ul>
                     <div class="add-item-form">
-                        <input v-model="card.newItem" placeholder="Новый пункт списка" />
-                        <button @click="addListItem(card)">Добавить пункт</button>
+                        <input v-model="card.newItem" placeholder="Новый пункт списка" :disabled="isFirstColumnLocked && index === 0 || card.items.length >= 5" />
+                        <button @click="addListItem(card)" :disabled="isFirstColumnLocked && index === 0 || card.items.length >= 5">Добавить пункт</button>
                     </div>
                     <div v-if="index === 2 && card.completedAt" class="completion-time">
                         Завершено: {{ formatDate(card.completedAt) }}
@@ -34,8 +34,8 @@
             </div>
         </div>
         <div class="add-card-form">
-            <input v-model="newCardTitle" placeholder="Название карточки" />
-            <button @click="addCard">Добавить карточку</button>
+            <input v-model="newCardTitle" placeholder="Название карточки" :disabled="isFirstColumnLocked" />
+            <button @click="addCard" :disabled="isFirstColumnLocked">Добавить карточку</button>
         </div>
     </div>
 </body>
