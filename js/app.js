@@ -48,6 +48,8 @@ new Vue({
                 this.moveCard(card, 1, 0);
             } else if (columnIndex === 1 && progress === 1) {
                 this.moveCard(card, 1, 2);
+            } else if (columnIndex === 2 && progress < 1) {
+                this.moveCard(card, 2, 1);
             }
         },
         moveCard(card, fromColumnIndex, toColumnIndex) {
